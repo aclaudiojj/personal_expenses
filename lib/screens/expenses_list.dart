@@ -11,18 +11,24 @@ class ExpensesList extends StatefulWidget {
 
 class _ExpensesListState extends State<ExpensesList> {
   final List<Transaction> _userTransactions = [
-    // Transaction(
-    //   id: 't1',
-    //   title: 'Notebook',
-    //   amount: 2000.0,
-    //   date: DateTime.now(),
-    // ),
-    // Transaction(
-    //   id: 't2',
-    //   title: 'Headphone',
-    //   amount: 1500.0,
-    //   date: DateTime.now(),
-    // ),
+    Transaction(
+      id: 't1',
+      title: 'Notebook',
+      amount: 2000.0,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't2',
+      title: 'Headphone',
+      amount: 1500.0,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't3',
+      title: 'test',
+      amount: 500.0,
+      date: DateTime.now(),
+    ),
   ];
 
   List<Transaction> get _recentTransactions {
@@ -32,14 +38,14 @@ class _ExpensesListState extends State<ExpensesList> {
     }).toList();
   }
 
-  void _addNewTransaction(String title, double amount) {
+  void _addNewTransaction(String title, double amount, DateTime chosenDate) {
     setState(
       () {
         this._userTransactions.add(
               Transaction(
                 title: title,
                 amount: amount,
-                date: DateTime.now(),
+                date: chosenDate,
                 id: DateTime.now().toString(),
               ),
             );
@@ -54,6 +60,12 @@ class _ExpensesListState extends State<ExpensesList> {
         return NewTransaction(this._addNewTransaction);
       },
     );
+  }
+
+  void _deleteTransaction(String id) {
+    setState(() {
+      this._userTransactions.removeWhere((transaction) => transaction.id == id);
+    });
   }
 
   @override
@@ -73,7 +85,7 @@ class _ExpensesListState extends State<ExpensesList> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Chart(this._recentTransactions),
-            TransactionList(this._userTransactions),
+            TransactionList(this._userTransactions, this._deleteTransaction),
           ],
         ),
       ),

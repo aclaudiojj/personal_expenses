@@ -11,6 +11,7 @@ class MyApp extends StatelessWidget {
       home: ExpensesList(),
       theme: ThemeData(
         primarySwatch: Colors.purple,
+        errorColor: Colors.red,
         accentColor: Colors.amber,
         fontFamily: 'Quicksand',
         textTheme: ThemeData.light().textTheme.copyWith(
@@ -18,6 +19,9 @@ class MyApp extends StatelessWidget {
                 fontFamily: 'OpenSans',
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
+              ),
+              button: TextStyle(
+                color: Colors.white,
               ),
             ),
         appBarTheme: AppBarTheme(
